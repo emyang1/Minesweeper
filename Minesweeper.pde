@@ -7,7 +7,7 @@ private ArrayList <MSButton> mines = new ArrayList <MSButton>(); //ArrayList of 
 
 public void setup ()
 {
-    size(400, 400);
+    size(500, 500);
     textAlign(CENTER,CENTER);
     
     // make the manager
