@@ -80,29 +80,18 @@ public void displayLosingMessage()
            fill(255,0,0);
         }
     //says you lose
-    buttons[NUM_ROWS/2][NUM_COLS/2-5].setLabel("G");
-    buttons[NUM_ROWS/2][NUM_COLS/2-4].setLabel("A");
-    buttons[NUM_ROWS/2][NUM_COLS/2-3].setLabel("M");
-    buttons[NUM_ROWS/2][NUM_COLS/2-2].setLabel("E");
-    buttons[NUM_ROWS/2][NUM_COLS/2].setLabel("O");
-    buttons[NUM_ROWS/2][NUM_COLS/2+1].setLabel("V");
-    buttons[NUM_ROWS/2][NUM_COLS/2+2].setLabel("E");
-    buttons[NUM_ROWS/2][NUM_COLS/2+3].setLabel("R");
-    buttons[NUM_ROWS/2][NUM_COLS/2+4].setLabel(":(");
+    String str = "GAME OVER!";
+    for(int i = 0; i<NUM_COLS; i++){
+      buttons[NUM_ROWS/2][i+5].setLabel(str.substring(i, i+1));
+    }
 }
 public void displayWinningMessage()
 {
     //your code here
-    buttons[NUM_ROWS/2][NUM_COLS/2-5].setLabel("C");
-    buttons[NUM_ROWS/2][NUM_COLS/2-4].setLabel("O");
-    buttons[NUM_ROWS/2][NUM_COLS/2-3].setLabel("N");
-    buttons[NUM_ROWS/2][NUM_COLS/2-2].setLabel("G");
-    buttons[NUM_ROWS/2][NUM_COLS/2-2].setLabel("G");
-    buttons[NUM_ROWS/2][NUM_COLS/2].setLabel("A");
-    buttons[NUM_ROWS/2][NUM_COLS/2+1].setLabel("T");
-    buttons[NUM_ROWS/2][NUM_COLS/2+2].setLabel("S");
-    buttons[NUM_ROWS/2][NUM_COLS/2+3].setLabel("!");
-    buttons[NUM_ROWS/2][NUM_COLS/2+4].setLabel(":)");
+    String str = "CONGRATS!!";
+    for(int i = 0; i<NUM_COLS; i++){
+      buttons[NUM_ROWS/2][i+5].setLabel(str.substring(i, i+1));
+    }
     
 }
 public boolean isValid(int r, int c)
@@ -153,18 +142,20 @@ public class MSButton
     {
         clicked = true;
         //your code here
-        if(mouseButton == RIGHT&&!clicked){
-          if(flagged == false){
-            flagged = true;
-          }else{
+        if(mouseButton == RIGHT){
+          if(flagged == true){
             flagged = false;
             clicked = false;
+          }else{
+           
+            flagged = true;            
           }
         }
         else if(flagged)
           return;
         else if(clicked && mines.contains(this)){
           displayLosingMessage();
+          
         }
         else if(countMines(myRow, myCol)>0)
           setLabel(countMines(myRow, myCol));
