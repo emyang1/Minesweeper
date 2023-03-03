@@ -165,7 +165,6 @@ public class MSButton
           return;
         else if(clicked && mines.contains(this)){
           displayLosingMessage();
-          exit();
         }
         else if(countMines(myRow, myCol)>0)
           setLabel(countMines(myRow, myCol));
