@@ -1,13 +1,13 @@
 import de.bezier.guido.*;
 //Declare and initialize constants NUM_ROWS and NUM_COLS = 20
-public final static int NUM_ROWS = 10;
-public final static int NUM_COLS = 10;
+public final static int NUM_ROWS = 20;
+public final static int NUM_COLS = 20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList <MSButton>(); //ArrayList of just the minesweeper buttons that are mined
 
 public void setup ()
 {
-    size(500, 500);
+    size(400, 430);
     textAlign(CENTER,CENTER);
     
     // make the manager
@@ -25,7 +25,7 @@ public void setup ()
 public void setMines()
 {
     //your code
-    while(mines.size()<5){
+    while(mines.size()<buttons.length*4){
       int ranr = (int)(Math.random()*NUM_ROWS);
       int ranc = (int)(Math.random()*NUM_COLS);
       if(!mines.contains(buttons[ranr][ranc]))
@@ -37,9 +37,19 @@ public void setMines()
 public void draw ()
 {
     background( 0 );
+    fill(250);
+    textSize(15);
+    int count = 0;
+    for(int r = 0; r<NUM_ROWS; r++){
+      for(int c = 0; c<NUM_COLS; c++){
+        if(buttons[r][c].isFlagged()==true)
+          count++;
+      }
+    }
+    text("flags left: "+(mines.size()-count), width/2, height-20);
     if(isWon() == true){
         displayWinningMessage();
-    }
+    }  
 }
 public boolean isWon()
 {
@@ -93,6 +103,7 @@ public void displayWinningMessage()
     buttons[NUM_ROWS/2][NUM_COLS/2+2].setLabel("S");
     buttons[NUM_ROWS/2][NUM_COLS/2+3].setLabel("!");
     buttons[NUM_ROWS/2][NUM_COLS/2+4].setLabel(":)");
+    
 }
 public boolean isValid(int r, int c)
 {
@@ -142,7 +153,7 @@ public class MSButton
     {
         clicked = true;
         //your code here
-        if(mouseButton == RIGHT){
+        if(mouseButton == RIGHT&&!clicked){
           if(flagged == false){
             flagged = true;
           }else{
@@ -150,8 +161,11 @@ public class MSButton
             clicked = false;
           }
         }
+        else if(flagged)
+          return;
         else if(clicked && mines.contains(this)){
           displayLosingMessage();
+          exit();
         }
         else if(countMines(myRow, myCol)>0)
           setLabel(countMines(myRow, myCol));
@@ -163,6 +177,7 @@ public class MSButton
             }
           }
         }
+    
     }
     public void draw () 
     {    
@@ -177,6 +192,7 @@ public class MSButton
 
         rect(x, y, width, height);
         fill(0);
+        textSize(12);
         text(myLabel,x+width/2,y+height/2);
     }
     public void setLabel(String newLabel)
