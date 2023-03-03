@@ -4,7 +4,7 @@ public final static int NUM_ROWS = 20;
 public final static int NUM_COLS = 20;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList <MSButton>(); //ArrayList of just the minesweeper buttons that are mined
-
+boolean gameover = false;
 public void setup ()
 {
     size(400, 430);
@@ -80,10 +80,12 @@ public void displayLosingMessage()
            fill(255,0,0);
         }
     //says you lose
+    gameover = true;
     String str = "GAME OVER!";
     for(int i = 0; i<NUM_COLS; i++){
       buttons[NUM_ROWS/2][i+5].setLabel(str.substring(i, i+1));
     }
+    
 }
 public void displayWinningMessage()
 {
@@ -140,7 +142,9 @@ public class MSButton
     // called by manager
     public void mousePressed () 
     {
-        clicked = true;
+      if(gameover == true)
+        return;
+      clicked = true;
         //your code here
         if(mouseButton == RIGHT){
           if(flagged == false){
@@ -155,7 +159,7 @@ public class MSButton
           return;
         else if(clicked && mines.contains(this)){
           displayLosingMessage();
-          
+
         }
         else if(countMines(myRow, myCol)>0)
           setLabel(countMines(myRow, myCol));
