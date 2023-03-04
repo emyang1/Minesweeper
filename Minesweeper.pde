@@ -81,20 +81,19 @@ public void displayLosingMessage()
         }
     //says you lose
     gameover = true;
-    String str = "GAME OVER!";
+    String lose = "GAME OVER";
     for(int i = 0; i<NUM_COLS; i++){
-      buttons[NUM_ROWS/2][i+5].setLabel(str.substring(i, i+1));
+      buttons[NUM_ROWS/2][i+5].setLabel(lose.substring(i, i+1));
     }
     
 }
 public void displayWinningMessage()
 {
     //your code here
-    String str = "CONGRATS!!";
-    for(int i = 0; i<NUM_COLS; i++){
-      buttons[NUM_ROWS/2][i+5].setLabel(str.substring(i, i+1));
-    }
-    
+    fill(0);
+    rect(width/2-60, height-30, 150, 50);
+    fill(250);
+    text("YOU WIN! CONGRATS", width/2, height-20);
 }
 public boolean isValid(int r, int c)
 {
