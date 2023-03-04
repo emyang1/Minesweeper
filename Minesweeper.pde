@@ -73,17 +73,21 @@ public void displayLosingMessage()
 {
     //your code here
     //reveals all bombs
-    for(int r = 0; r<NUM_ROWS; r++)
-      for(int c = 0; c<NUM_COLS; c++)
+    for(int r = 0; r<NUM_ROWS; r++){
+      for(int c = 0; c<NUM_COLS; c++){
         if(mines.contains(buttons[r][c])){
+          if(mines.contains(buttons[r][c])&&buttons[r][c].flagged == true)
+            buttons[r][c].flagged = false;
            buttons[r][c].clicked = true;
            fill(255,0,0);
         }
+      }
+    }
     //says you lose
     gameover = true;
-    String lose = "GAME OVER";
+    String str = "GAME OVER!";
     for(int i = 0; i<NUM_COLS; i++){
-      buttons[NUM_ROWS/2][i+5].setLabel(lose.substring(i, i+1));
+      buttons[NUM_ROWS/2][i+5].setLabel(str.substring(i, i+1));
     }
     
 }
@@ -94,6 +98,7 @@ public void displayWinningMessage()
     rect(width/2-60, height-30, 150, 50);
     fill(250);
     text("YOU WIN! CONGRATS", width/2, height-20);
+    
 }
 public boolean isValid(int r, int c)
 {
